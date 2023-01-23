@@ -12,7 +12,7 @@ import scipy.ndimage as ndimage
 from writer import write_macro
 import cv2
 
-DEBUG = True
+DEBUG = False
 
 #%% Import image
 progress = 0
