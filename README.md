@@ -34,4 +34,4 @@ I do not know how to create an executable (oh, and side-note: DO NOT RUN A RANDO
 
 Done ! You can now use the macro to DIG your dungeon. It won't work with walls. 
 
-Now, as I said this is not optimized and does not render the generated dungeon perfectly. The code is open. Feel free to modify it and make suggestions.
+Now, as I said this is not optimized and does not render the generated dungeon perfectly. The code is open. Feel free to modify it and make suggestions. If have included two maps and their resulting macros in the repository.
