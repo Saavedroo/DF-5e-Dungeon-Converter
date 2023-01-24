@@ -38,6 +38,10 @@ I do not know how to create an executable (oh, and side-note: DO NOT RUN A RANDO
 
 10. If all worked, you will now have a .mak file in the folder. Move it to "Dwarf Fortress\prefs\macros". Steam players can find the game in "X:\Steam\steamapps\common\'
 
-Done ! You can now use the macro to DIG your dungeon. It won't work with walls. 
+11. Done ! You can now use the macro to DIG your dungeon. It won't work with walls. To use the macro, you must enable keyboard cursor in the game settings. Then move said cursor to the TOP LEFT of your future dungeon. Open the macros menu with Ctrl+L, select your macro and launch it with Ctrl+P.
+
+12. Oh, a quick warning: This will take some time. On my PC I estimated ~3s per row. I'll let you run the numbers for a 146 rows embark (remember that while a 3x3 embark is 148x148 tiles, the top, bottom, left and right lines are not diggable ! Plan teh size accordingly). Also be sure to select the right priority: it WILL be a pain to change it afterward.
+
+12 bis. As far as I can tell, you cannot switch window while a macro is running, and you'll have to start over if you interrupt it. So grab a book, make yourself a hot chocolate or go hug your friends while it runs.
 
 Now, as I said this is not optimized and does not render the generated dungeon perfectly. The code is open. Feel free to modify it and make suggestions. If have included two maps and their resulting macros in the repository.
