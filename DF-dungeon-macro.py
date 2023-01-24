@@ -12,14 +12,13 @@ import scipy.ndimage as ndimage
 from writer import write_macro
 import cv2
 
-DEBUG = False
+DEBUG = True
 
 #%% Import image
 progress = 0
 print()
 while progress!=1:
     image_name = input("Enter the filename of your dungeon map (ex: dungeon.png): ")
-    # image_name = "The Dark Dungeon of the Demon Duke.png"
 
     if exists(image_name):
         dungeon = cv2.imread(image_name)
@@ -48,7 +47,7 @@ if DEBUG:
 #%% Apply a binary closing to remove grid and superfluous details
 # To learn about morphological closing: https://en.wikipedia.org/wiki/Closing_(morphology)
 struct = ndimage.generate_binary_structure(2, 2)
-dungeon_corrected = ndimage.binary_closing(dungeon_gray, struct, 10)
+dungeon_corrected = ndimage.binary_closing(dungeon_gray, struct, 2)
 
 if DEBUG:
     plt.imshow(dungeon_corrected)
@@ -62,7 +61,7 @@ square = dungeon_corrected.shape[0]==dungeon_corrected.shape[1]
 
 if square:
     progress = 0
-    print("Map is squared")
+    print("\nMap is squared")
     while progress!=1:
         length = input("Enter the new side length: ")
 
@@ -72,21 +71,22 @@ if square:
             progress = 1
 
         else:
-            print('The length must be a valid number.')
+            print('The length must be a valid number.\n')
 else:
     progress = 0
+    print("\nMap is not a square.")
     while progress!=1:
-        side_to_change = input("Map is not a square. Would you rather define the height (h) or width (w) for resizing ? ")
+        side_to_change = input("Would you rather define the height (h) or width (w) for resizing ? ")
 
         if side_to_change in ['h', 'w']:
             progress = 1
 
         else:
-            print('Enter either \'h\' or \'w\'')
+            print('Enter either \'h\' or \'w\'\n')
     
     progress = 0
     while progress!=1:
-        length = input("New height/width: ")
+        length = input("\nNew height/width:")
 
         if length.isnumeric():
             if side_to_change == 'h':
@@ -98,7 +98,7 @@ else:
             progress = 1
 
         else:
-            print('The length must be a valid number.')
+            print('The length must be a valid number.\n')
 
 dungeon_resized = cv2.resize(np.float32(dungeon_corrected), dsize=(width, height), interpolation=cv2.INTER_LINEAR_EXACT)
 
@@ -108,17 +108,26 @@ if DEBUG:
     plt.close()
 
 #%% Resize the image as requested and make it a binary map (True or False instead of a grayscale)
-dungeon_1D = np.unique(np.resize(dungeon_resized, height*width))
-dungeon_values = np.flip(dungeon_1D)
-
-
-# dungeon_map = (np.array(dungeon_resized) == dungeon_values[0]) + (np.array(dungeon_resized) == dungeon_values[2]) + (np.array(dungeon_resized) == dungeon_values[3])
 dungeon_map = np.array(dungeon_resized) > 0
+progress = 0
+print("\nDo you want fancy junctions ?")
+print("(Just a fun thing I realized: If I changed one setting on the details-removal part, some tunnel and room junctions will be curved instead of 90° angles)")
+print("This could lead to artefacts, it's not tested at all. (Hail serendipity !)")
+while progress!=1:
+    fancy = input("(y/n):")
+    if fancy=="y":
+        struct = ndimage.generate_binary_structure(2, 1)
+        progress = 1
+    elif fancy=="n":
+        struct = ndimage.generate_binary_structure(2, 2)
+        progress = 1
+        
+dungeon_map = ndimage.binary_erosion(dungeon_map, struct, 1)
+
 if DEBUG:
     plt.imshow(dungeon_map)
     plt.savefig("./"+macro_name+"-04_map.png")
     plt.close()
-
 #%% Create macro
 macro_name = macro_name+'-'+str(width)+'x'+str(height)
 write_macro(macro_name, dungeon_map)

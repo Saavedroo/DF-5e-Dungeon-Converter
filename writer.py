@@ -21,32 +21,29 @@ def write_macro(name, dig_map):
         f.write(name+"\n")
         i=0
         x = dig_map.shape[1]
-        right = np.arange(dig_map.shape[1])
-        left = -np.arange(dig_map.shape[1])-1
         while i < dig_map.shape[0]:
-        # for i in range(dig_map.shape[0]):
             if i%2==0:
-                for j in right:
+                for j in range(dig_map.shape[1]):
                     if dig_map[i, j]:
                         f.write("		SELECT\n")
                         f.write("	End of group\n")
                         f.write("		SELECT\n")
                         f.write("	End of group\n")
-                    f.write("		KEYBOARD_CURSOR_RIGHT\n")
-                    f.write("	End of group\n")
-        
-                # for j in range(dig_map.shape[1]):
-                #     f.write("		KEYBOARD_CURSOR_LEFT\n")
-                #     f.write("	End of group\n")
+                    if j<dig_map.shape[1]-1:
+                        f.write("		KEYBOARD_CURSOR_RIGHT\n")
+                        f.write("	End of group\n")
+                    
             else:
-                for j in left:
-                    if dig_map[i, j]:
+                for j in range(dig_map.shape[1]):
+                    if dig_map[i, -j-1]:
                         f.write("		SELECT\n")
                         f.write("	End of group\n")
                         f.write("		SELECT\n")
                         f.write("	End of group\n")
-                    f.write("		KEYBOARD_CURSOR_LEFT\n")
-                    f.write("	End of group\n")
+                        
+                    if j<dig_map.shape[1]-1:
+                        f.write("		KEYBOARD_CURSOR_LEFT\n")
+                        f.write("	End of group\n")
                     
             f.write("		KEYBOARD_CURSOR_DOWN\n")
             f.write("	End of group\n")
