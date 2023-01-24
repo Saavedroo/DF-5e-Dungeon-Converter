@@ -20,15 +20,18 @@ I do not know how to create an executable (oh, and side-note: DO NOT RUN A RANDO
 
 4. Generate your dungeon via https://donjon.bin.sh/5e/dungeon/. It can be any size, any options. But due to the need to resize-the image, shapes that are not squares may look weird in the final result. (Also corridor width will not always be consistent).
 
-5. When downloading the map, choose PRINT SCALE
+5. Do not generate the dungeon. Instead download the preview on the right. Give it the name you want.
 
-6. Put the new image in the scripts folder
+6. Put the new image in the scripts folder.
 
 7. From a terminal or powershell, navigate to the newly created folder containing the .py files.
 
 8. Execute the following command: "python DF-dungeon-macro.py"
 
 9. Follow the instructions
+    9.a If your map is squared, you will be prompted for the side length
+    9.b If your map is rectangular, you must choose a side to change its length. The other side will be modified to kep the ratio.
+    9.c I noticed that modifying a setting (the structure to use for morphological operations) could lead to corridor junctions being slightly curved. This is an option if you want some fancier corridors.
 
 10. If all worked, you will now have a .mak file in the folder. Move it to "Dwarf Fortress\prefs\macros". Steam players can find the game in "X:\Steam\steamapps\common\'
 
