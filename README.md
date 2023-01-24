@@ -22,7 +22,7 @@ I do not know how to create an executable (oh, and side-note: DO NOT RUN A RANDO
 
 5. Do not generate the dungeon. Instead download the preview on the right. Give it the name you want.
 
-6. Put the new image in the scripts folder.
+6. Put the new image in this folder.
 
 7. From a terminal or powershell, navigate to the newly created folder containing the .py files.
 
