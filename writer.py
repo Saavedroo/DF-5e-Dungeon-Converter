@@ -2,7 +2,7 @@
 """
 Created on Tue Jan 17 19:47:18 2023
 
-@author: Léo M
+@author: French Vivec
 """
 
 def write_macro(name, dig_map):
